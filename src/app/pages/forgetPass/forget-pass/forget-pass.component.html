@@ -1,0 +1,169 @@
+<section class="md:w-1/2 mx-auto bg-gradient-to-r from-green-100 to-blue-100 dark:from-gray-800 dark:to-gray-900 p-8 rounded-xl shadow-2xl">
+  <h1 class="text-4xl font-bold text-center mb-8">
+    <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-blue-600 dark:from-purple-400 dark:to-pink-400">
+      Forgot Password?
+    </span>
+  </h1>
+  @if (step === 1) {
+    <form [formGroup]="verifyEmail" (ngSubmit)="verify_Email()" class="space-y-6">
+      <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <i class="fas fa-envelope mr-2 text-green-600 dark:text-purple-400"></i>Email
+      </label>
+      <div class="relative">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+          <i class="fas fa-envelope text-gray-500 dark:text-gray-400"></i>
+        </div>
+        <input
+          formControlName="email"
+          type="email"
+          id="email"
+          class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-green-500 dark:focus:ring-purple-500 focus:border-green-500 dark:focus:border-purple-500 block ps-10 p-2.5 transition-all"
+          placeholder="userName@gmail.com"
+        />
+      </div>
+      @if (verifyEmail.get('email')?.errors && verifyEmail.get('email')?.touched) {
+        <div class="mt-2 p-3 text-sm text-red-700 bg-red-50 dark:bg-red-900/10 dark:text-red-400 rounded-lg flex items-center">
+          <i class="fas fa-exclamation-circle mr-2"></i>
+          <ul class="list-disc list-inside">
+            @if (verifyEmail.get('email')?.getError('required')) {
+              <li>Email is required.</li>
+            }
+            @else if (verifyEmail.get('email')?.getError('email')) {
+              <li>Please enter a valid email address.</li>
+            }
+          </ul>
+        </div>
+      }
+      <button
+        type="submit"
+        class="flex items-center justify-center w-full bg-gradient-to-r from-green-600 to-blue-600 dark:from-purple-600 dark:to-pink-600 text-white py-3 rounded-lg font-semibold hover:from-green-700 hover:to-blue-700 dark:hover:from-purple-700 dark:hover:to-pink-700 transition-all transform hover:scale-105"
+        [class.opacity-50]="isLoading"
+        [disabled]="isLoading"
+      >
+        @if (isLoading) {
+          <i class="fas fa-spinner fa-spin"></i>
+        } @else {
+          <i class="fas fa-check-circle mr-2"></i>Verify Email
+        }
+      </button>
+    </form>
+  }
+  @else if (step === 2) {
+    <form [formGroup]="verifyCode" (ngSubmit)="verify_code()" class="space-y-6">
+      <label for="code" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <i class="fas fa-lock mr-2 text-green-600 dark:text-purple-400"></i>Verification Code
+      </label>
+      <div class="relative">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+          <i class="fas fa-lock text-gray-500 dark:text-gray-400"></i>
+        </div>
+        <input
+          formControlName="resetCode"
+          type="text"
+          id="code"
+          class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-green-500 dark:focus:ring-purple-500 focus:border-green-500 dark:focus:border-purple-500 block ps-10 p-2.5 transition-all"
+          placeholder="Enter your verification code"
+        />
+      </div>
+      @if (verifyCode.get('resetCode')?.errors && verifyCode.get('resetCode')?.touched) {
+        <div class="mt-2 p-3 text-sm text-red-700 bg-red-50 dark:bg-red-900/10 dark:text-red-400 rounded-lg flex items-center">
+          <i class="fas fa-exclamation-circle mr-2"></i>
+          <ul class="list-disc list-inside">
+            @if (verifyCode.get('resetCode')?.getError('required')) {
+              <li>Verification code is required.</li>
+            }
+            @else if (verifyCode.get('resetCode')?.getError('pattern')) {
+              <li>Please enter a valid verification code.</li>
+            }
+          </ul>
+        </div>
+      }
+      <button
+        type="submit"
+        class="flex items-center justify-center w-full bg-gradient-to-r from-green-600 to-blue-600 dark:from-purple-600 dark:to-pink-600 text-white py-3 rounded-lg font-semibold hover:from-green-700 hover:to-blue-700 dark:hover:from-purple-700 dark:hover:to-pink-700 transition-all transform hover:scale-105"
+        [class.opacity-50]="isLoading"
+        [disabled]="isLoading"
+      >
+        @if (isLoading) {
+          <i class="fas fa-spinner fa-spin"></i>
+        } @else {
+          <i class="fas fa-check-circle mr-2"></i>Verify Code
+        }
+      </button>
+    </form>
+  }
+  @else if (step === 3) {
+    <form [formGroup]="resetPassword" (ngSubmit)="newPassword()" class="space-y-6">
+      <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <i class="fas fa-envelope mr-2 text-green-600 dark:text-purple-400"></i>Email
+      </label>
+      <div class="relative">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+          <i class="fas fa-envelope text-gray-500 dark:text-gray-400"></i>
+        </div>
+        <input
+          formControlName="email"
+          type="email"
+          id="email"
+          class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-green-500 dark:focus:ring-purple-500 focus:border-green-500 dark:focus:border-purple-500 block ps-10 p-2.5 transition-all"
+          placeholder="userName@gmail.com"
+          readonly
+        />
+      </div>
+      @if (resetPassword.get('email')?.errors && resetPassword.get('email')?.touched) {
+        <div class="mt-2 p-3 text-sm text-red-700 bg-red-50 dark:bg-red-900/10 dark:text-red-400 rounded-lg flex items-center">
+          <i class="fas fa-exclamation-circle mr-2"></i>
+          <ul class="list-disc list-inside">
+            @if (resetPassword.get('email')?.getError('required')) {
+              <li>Email is required.</li>
+            }
+            @else if (resetPassword.get('email')?.getError('email')) {
+              <li>Please enter a valid email address.</li>
+            }
+          </ul>
+        </div>
+      }
+
+      <label for="newPassword" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <i class="fas fa-lock mr-2 text-green-600 dark:text-purple-400"></i>New Password
+      </label>
+      <div class="relative">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+          <i class="fas fa-lock text-gray-500 dark:text-gray-400"></i>
+        </div>
+        <input
+          formControlName="newPassword"
+          type="password"
+          id="newPassword"
+          class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-green-500 dark:focus:ring-purple-500 focus:border-green-500 dark:focus:border-purple-500 block ps-10 p-2.5 transition-all"
+          placeholder="Enter your new password"
+        />
+      </div>
+      @if (resetPassword.get('newPassword')?.errors && resetPassword.get('newPassword')?.touched) {
+        <div class="mt-2 p-3 text-sm text-red-700 bg-red-50 dark:bg-red-900/10 dark:text-red-400 rounded-lg flex items-center">
+          <i class="fas fa-exclamation-circle mr-2"></i>
+          <ul class="list-disc list-inside">
+            @if (resetPassword.get('newPassword')?.getError('required')) {
+              <li>Password is required.</li>
+            }
+            @else if (resetPassword.get('newPassword')?.getError('pattern')) {
+              <li>Password must start with an uppercase letter and be at least 8 characters long.</li>
+            }
+          </ul>
+        </div>
+      }
+      <button
+        type="submit"
+        class="flex items-center justify-center w-full bg-gradient-to-r from-green-600 to-blue-600 dark:from-purple-600 dark:to-pink-600 text-white py-3 rounded-lg font-semibold hover:from-green-700 hover:to-blue-700 dark:hover:from-purple-700 dark:hover:to-pink-700 transition-all transform hover:scale-105"
+        [class.opacity-50]="isLoading"
+        [disabled]="isLoading"
+      >
+        @if (isLoading) {
+          <i class="fas fa-spinner fa-spin"></i>
+        } @else {
+          <i class="fas fa-key mr-2"></i>Change Password
+        }
+      </button>
+    </form>
+  }
+</section>

@@ -1,0 +1,130 @@
+<section class="md:w-1/2 mx-auto bg-gradient-to-r from-green-100 to-blue-100 dark:from-gray-800 dark:to-gray-900 p-8 rounded-xl shadow-2xl">
+  <h1 class="text-4xl font-bold text-center mb-8">
+    <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-blue-600 dark:from-purple-400 dark:to-pink-400">
+      Login Now
+    </span>
+  </h1>
+  <form [formGroup]="login" (ngSubmit)="submitForm()" class="space-y-6">
+    <div>
+      <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <i class="fas fa-envelope mr-2 text-green-600 dark:text-purple-400"></i>Email
+      </label>
+      <div class="relative">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+          <i class="fas fa-envelope text-gray-500 dark:text-gray-400"></i>
+        </div>
+        <input
+          formControlName="email"
+          type="email"
+          id="email"
+          class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-green-500 dark:focus:ring-purple-500 focus:border-green-500 dark:focus:border-purple-500 block ps-10 p-2.5 transition-all"
+          placeholder="userName@gmail.com"
+        />
+      </div>
+      @if (login.get('email')?.errors && login.get('email')?.touched) {
+        <div class="mt-2 p-3 text-sm text-red-700 bg-red-50 dark:bg-red-900/10 dark:text-red-400 rounded-lg flex items-center">
+          <i class="fas fa-exclamation-circle mr-2"></i>
+          <ul class="list-disc list-inside">
+            @if (login.get('email')?.getError('required')) {
+              <li>Email is required.</li>
+            }
+            @else if (login.get('email')?.getError('email')) {
+              <li>Please enter a valid email address.</li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+    <div>
+      <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <i class="fas fa-lock mr-2 text-green-600 dark:text-purple-400"></i>Password
+      </label>
+      <div class="relative">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+          <i class="fas fa-lock text-gray-500 dark:text-gray-400"></i>
+        </div>
+        <input
+          formControlName="password"
+          type="password"
+          id="password"
+          class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-green-500 dark:focus:ring-purple-500 focus:border-green-500 dark:focus:border-purple-500 block ps-10 p-2.5 transition-all"
+          placeholder="Enter your password"
+        />
+      </div>
+      @if (login.get('password')?.errors && login.get('password')?.touched) {
+        <div class="mt-2 p-3 text-sm text-red-700 bg-red-50 dark:bg-red-900/10 dark:text-red-400 rounded-lg flex items-center">
+          <i class="fas fa-exclamation-circle mr-2"></i>
+          <ul class="list-disc list-inside">
+            @if (login.get('password')?.getError('required')) {
+              <li>Password is required.</li>
+            }
+            @else if (login.get('password')?.getError('pattern')) {
+              <li>Password must start with an uppercase letter and be at least 8 characters long.</li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+    <div class="flex items-center justify-between">
+      <div class="flex items-center">
+        <input
+          id="remember-me"
+          type="checkbox"
+          class="w-4 h-4 text-green-600 dark:text-purple-400 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-purple-500 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+        />
+        <label for="remember-me" class="ms-2 text-sm text-gray-700 dark:text-gray-300">
+          <i class="fas fa-check-circle mr-2 text-green-600 dark:text-purple-400"></i>Remember me
+        </label>
+      </div>
+      <a
+        routerLink="/forgetPassword"
+        class="text-sm text-green-600 dark:text-purple-400 hover:text-green-800 dark:hover:text-purple-300 transition-all"
+      >
+        <i class="fas fa-key mr-2"></i>Forgot Password?
+      </a>
+    </div>
+    <button
+      type="submit"
+      class="flex items-center justify-center w-full bg-gradient-to-r from-green-600 to-blue-600 dark:from-purple-600 dark:to-pink-600 text-white py-3 rounded-lg font-semibold hover:from-green-700 hover:to-blue-700 dark:hover:from-purple-700 dark:hover:to-pink-700 transition-all transform hover:scale-105"
+      [class.opacity-50]="isLoading"
+      [disabled]="isLoading"
+    >
+      @if (isLoading) {
+        <i class="fas fa-spinner fa-spin"></i>
+      } @else {
+        <i class="fas fa-sign-in-alt mr-2"></i>Sign In
+      }
+    </button>
+    <div class="text-center text-sm text-gray-600 dark:text-gray-400">Or continue with</div>
+    <div class="flex justify-center space-x-4">
+      <button
+        type="button"
+        class="p-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-all"
+      >
+        <i class="fab fa-google text-red-600"></i>
+      </button>
+      <button
+        type="button"
+        class="p-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-all"
+      >
+        <i class="fab fa-facebook text-blue-600"></i>
+      </button>
+      <button
+        type="button"
+        class="p-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-all"
+      >
+        <i class="fab fa-apple text-gray-800 dark:text-gray-200"></i>
+      </button>
+    </div>
+    @if (showError) {
+      <div class="mt-4 p-3 text-sm text-red-700 bg-red-50 dark:bg-red-900/10 dark:text-red-400 rounded-lg">
+        <i class="fas fa-exclamation-triangle mr-2"></i>{{ showError }}
+      </div>
+    }
+    @if (success) {
+      <div class="mt-4 p-3 text-sm text-green-700 bg-green-50 dark:bg-green-900/10 dark:text-green-400 rounded-lg">
+        <i class="fas fa-check-circle mr-2"></i>{{ success }}
+      </div>
+    }
+  </form>
+</section>

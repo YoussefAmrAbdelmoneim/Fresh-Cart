@@ -1,0 +1,21 @@
+<section class="py-12 bg-gray-50 dark:bg-gray-900">
+    <div class="container mx-auto px-4">
+      <h1 class="text-4xl text-green-600 font-bold text-center mb-8 dark:text-purple-400">
+        All Brands
+      </h1>
+      <div class="grid md:grid-cols-4 gap-6">
+        @for (brand of brands; track brand._id) {
+          <div class="card rounded-lg overflow-hidden border-2 border-gray-200 dark:border-purple-700 hover:shadow-xl hover:dark:shadow-purple-500/50 hover:shadow-green-500/50 transition-all duration-300 transform hover:-translate-y-2">
+            <div class="card-img">
+              <img [src]="brand.image" class="w-full h-48 object-cover" [alt]="brand.name">
+            </div>
+            <div class="card-body p-6 bg-gradient-to-r from-green-50 to-blue-50 dark:bg-gradient-to-r dark:from-purple-800 dark:to-purple-900">
+              <h2 class="text-center text-xl font-semibold text-green-700 dark:text-purple-200">
+                {{ brand.name }}
+              </h2>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>

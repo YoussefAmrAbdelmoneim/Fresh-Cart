@@ -1,0 +1,85 @@
+<nav class="bg-gray-100 border-gray-200 dark:bg-gray-900 z-50">
+    <div class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto px-4 py-2">
+      <a  class="flex items-center space-x-3 rtl:space-x-reverse dark:invert">
+          <img src="/images/freshcart-logo.svg" class="h-8" alt="Flowbite Logo" />
+      </a>
+      <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+          </svg> 
+      </button>
+      <div class="hidden w-full lg:flex lg:w-auto flex-grow" id="navbar-default">
+    @if (isLogin()) {
+      <ul class="capitalize font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-0 rtl:space-x-reverse md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+        <li>
+          <a class="block py-2 px-3 text-gray-700 rounded-lg dark:text-white" routerLink="/home" routerLinkActive="bg-green-700 text-white dark:bg-purple-500">Home</a>
+      </li>
+      <li>
+        <a class="block py-2 px-3 text-gray-700 rounded-lg dark:text-white" routerLink="/products" routerLinkActive="bg-green-700 text-white dark:bg-purple-500">Products</a>
+    </li>
+    <li>
+      <a class="block py-2 px-3 text-gray-700 rounded-lg dark:text-white" routerLink="/cart" routerLinkActive="bg-green-700 text-white dark:bg-purple-500">Cart</a>
+  </li>
+  <li>
+    <a class="block py-2 px-3 text-gray-700 rounded-lg dark:text-white" routerLink="/categories" routerLinkActive="bg-green-700 text-white dark:bg-purple-500">Categories</a>
+</li>
+<li>
+  <a class="block py-2 px-3 text-gray-700 rounded-lg dark:text-white" routerLink="/brands" routerLinkActive="bg-green-700 text-white dark:bg-purple-500">Brands</a>
+</li>
+      </ul>
+    }
+        <ul class="capitalize ms-auto font-medium justify-between flex items-center flex-wrap flex-row p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-1 rtl:space-x-reverse md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <div class="relative group inline-block">
+            <button class="flex items-center px-3 py-2 text-gray-700 dark:text-white bg-gray-200 dark:bg-gray-800 rounded-lg">
+                <i class="fas fa-share-alt"></i>
+            </button>
+            <ul class="z-50 absolute right-[-70px] md:right-0 mt-2 w-36 bg-white dark:bg-gray-800 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                <li><a href="https://www.instagram.com/" class="block px-4 py-2 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"><i class="fab fa-instagram"></i> Instagram</a></li>
+                <li><a href="https://www.facebook.com/" class="block px-4 py-2 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"><i class="fab fa-facebook"></i> Facebook</a></li>
+                <li><a href="https://www.tiktok.com/" class="block px-4 py-2 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"><i class="fab fa-tiktok"></i> TikTok</a></li>
+                <li><a href="https://www.x.com/" class="block px-4 py-2 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"><i class="fab fa-x-twitter"></i> Twitter</a></li>
+                <li><a href="https://www.linkedin.com/" class="block px-4 py-2 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                <li><a href="https://www.youtube.com/" class="block px-4 py-2 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"><i class="fab fa-youtube"></i> YouTube</a></li>
+            </ul>
+        </div>
+        
+        
+          @if (!isLogin()) {
+            <li>
+              <a class="block py-2 px-3 text-gray-700 rounded-lg dark:text-white" routerLink="/login" routerLinkActive="bg-green-700 text-white dark:bg-purple-500">Login</a>
+            </li>
+            <li>
+              <a class="block py-2 px-3 text-gray-700 rounded-lg dark:text-white" routerLink="/register" routerLinkActive="bg-green-700 text-white dark:bg-purple-500">Register</a>
+            </li>
+          
+        }
+        @else {
+          <li>
+            <div class="relative inline-block cursor-pointer" routerLink="/cart">
+              <i class="fas fa-shopping-cart text-green-600 dark:text-purple-500 text-xl"></i>
+              <span class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-purple-500 dark:bg-green-600 text-white text-xs rounded-full px-2 py-1">
+                  {{cartNumber}}
+              </span>
+          </div>
+          </li>
+          <li>
+            <a class="block py-2 px-3  text-gray-700 rounded-sm " routerLink="/wishlist" routerLinkActive="text-red-500 dark:text-red-500" aria-current="page"><span><i class="fa fa-heart"></i></span></a>
+
+          </li>
+          <li>
+            <a class="block py-2 px-3  text-gray-700 rounded-sm  dark:text-white " role="button" aria-current="page" (click)="authService.logOut()">logout</a>
+          </li> 
+        }
+        <label class="inline-flex items-center me-5 cursor-pointer">
+          <input type="checkbox" class="sr-only peer" [checked]="isDarkMode" (change)="toggleDarkMode()">
+    
+          <div class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600 dark:peer-checked:bg-purple-600">
+            <span class="absolute left-1 z-20 text-yellow-300"><i class="fa fa-sun"></i></span>
+            <span class="absolute left-[27px] z-20"><i class="fa fa-moon"></i></span>
+          </div>
+        </label>
+        </ul>
+      </div>
+    </div>
+  </nav>

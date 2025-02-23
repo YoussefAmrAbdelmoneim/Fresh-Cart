@@ -1,0 +1,63 @@
+<section class="py-8">
+    <div class="container mx-auto bg-gray-100 p-6 dark:bg-gray-900 rounded-lg shadow-lg">
+      <h1 class="font-semibold text-4xl text-gray-800 dark:text-white mb-6">My Wishlist</h1>
+      @if (empty) {
+        <div class="text-center py-12">
+          <img 
+            src="/images/empty_wishlist.png" 
+            class="w-64 mx-auto" 
+            alt="Empty Wishlist"
+          />
+          <h2 class="text-3xl font-semibold text-gray-800 dark:text-gray-200 mt-6">
+            Your Wishlist is Empty
+          </h2>
+          <p class="text-xl text-gray-600 dark:text-gray-400 mt-3">
+            Looks like you haven't added anything to your wishlist yet.
+          </p>
+          <button 
+            class="mt-6 bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition-all duration-300"
+            routerLink="/products"
+          >
+            Start Shopping
+          </button>
+        </div>
+      }
+      @if (!empty) {
+        <div class="space-y-6">
+          @for (product of wishlist; track product.id) {
+            <div class="cart-item p-6 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
+              <div class="md:flex justify-between items-center">
+                <div class="md:flex gap-6 items-center">
+                  <div class="w-48 h-48 overflow-hidden rounded-lg">
+                    <img 
+                      [src]="product.imageCover" 
+                      class="w-full h-full object-cover" 
+                      [alt]="product.title"
+                    />
+                  </div>
+                  <div class="text-2xl font-medium text-gray-800 dark:text-gray-200">
+                    <h2 class="mb-2">{{ product.title }}</h2>
+                    <span class="block mb-2">
+                      Price: <span class="text-green-500 dark:text-purple-400">{{ product.price }} EGP</span>
+                    </span>
+                    <button 
+                      class="text-red-500 text-xl hover:text-red-600 transition-all duration-300" 
+                      (click)="deleteFromWishlist(product.id)"
+                    >
+                      <i class="fa fa-trash"></i> Remove
+                    </button>
+                  </div>
+                </div>
+                <button 
+                  (click)="addToCart(product.id)" 
+                  class="btn bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition-all duration-300"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </section>

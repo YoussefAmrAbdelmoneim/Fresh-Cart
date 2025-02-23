@@ -1,0 +1,111 @@
+<section class="md:w-1/2 mx-auto bg-gradient-to-r from-green-100 to-blue-100 dark:from-gray-800 dark:to-gray-900 p-8 rounded-xl shadow-2xl">
+    <h1 class="text-4xl font-bold text-center mb-8">
+      <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-blue-600 dark:from-purple-400 dark:to-pink-400">
+        Enter Your Details
+      </span>
+    </h1>
+    <form [formGroup]="checkOutForm" (ngSubmit)="submitForm()" class="space-y-6">
+      <div>
+        <label for="details" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <i class="fas fa-info-circle mr-2 text-green-600 dark:text-purple-400"></i>Details
+        </label>
+        <div class="relative">
+          <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+            <i class="fas fa-info-circle text-gray-500 dark:text-gray-400"></i>
+          </div>
+          <input
+            formControlName="details"
+            type="text"
+            id="details"
+            class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-green-500 dark:focus:ring-purple-500 focus:border-green-500 dark:focus:border-purple-500 block ps-10 p-2.5 transition-all"
+            placeholder="Enter your details"
+          />
+        </div>
+        @if (checkOutForm.get('details')?.errors && checkOutForm.get('details')?.touched) {
+          <div class="mt-2 p-3 text-sm text-red-700 bg-red-50 dark:bg-red-900/10 dark:text-red-400 rounded-lg flex items-center">
+            <i class="fas fa-exclamation-circle mr-2"></i>
+            <ul class="list-disc list-inside">
+              @if (checkOutForm.get('details')?.getError('required')) {
+                <li>Details are required.</li>
+              }
+              @else if (checkOutForm.get('details')?.getError('minlength')) {
+                <li>Details must be at least 5 characters long.</li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+      <div>
+        <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <i class="fas fa-phone mr-2 text-green-600 dark:text-purple-400"></i>Phone
+        </label>
+        <div class="relative">
+          <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+            <i class="fas fa-phone text-gray-500 dark:text-gray-400"></i>
+          </div>
+          <input
+            formControlName="phone"
+            type="tel"
+            id="phone"
+            class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-green-500 dark:focus:ring-purple-500 focus:border-green-500 dark:focus:border-purple-500 block ps-10 p-2.5 transition-all"
+            placeholder="Enter your phone number"
+          />
+        </div>
+        @if (checkOutForm.get('phone')?.errors && checkOutForm.get('phone')?.touched) {
+          <div class="mt-2 p-3 text-sm text-red-700 bg-red-50 dark:bg-red-900/10 dark:text-red-400 rounded-lg flex items-center">
+            <i class="fas fa-exclamation-circle mr-2"></i>
+            <ul class="list-disc list-inside">
+              @if (checkOutForm.get('phone')?.getError('required')) {
+                <li>Phone is required.</li>
+              }
+              @else if (checkOutForm.get('phone')?.getError('pattern')) {
+                <li>Please enter a valid phone number.</li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+      <div>
+        <label for="city" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <i class="fas fa-city mr-2 text-green-600 dark:text-purple-400"></i>City
+        </label>
+        <div class="relative">
+          <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+            <i class="fas fa-city text-gray-500 dark:text-gray-400"></i>
+          </div>
+          <input
+            formControlName="city"
+            type="text"
+            id="city"
+            class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-green-500 dark:focus:ring-purple-500 focus:border-green-500 dark:focus:border-purple-500 block ps-10 p-2.5 transition-all"
+            placeholder="Enter your city"
+          />
+        </div>
+        @if (checkOutForm.get('city')?.errors && checkOutForm.get('city')?.touched) {
+          <div class="mt-2 p-3 text-sm text-red-700 bg-red-50 dark:bg-red-900/10 dark:text-red-400 rounded-lg flex items-center">
+            <i class="fas fa-exclamation-circle mr-2"></i>
+            <ul class="list-disc list-inside">
+              @if (checkOutForm.get('city')?.getError('required')) {
+                <li>City is required.</li>
+              }
+              @else if (checkOutForm.get('city')?.getError('minlength')) {
+                <li>City must be at least 3 characters long.</li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+      <button
+        type="submit"
+        class="flex items-center justify-center w-full bg-gradient-to-r from-green-600 to-blue-600 dark:from-purple-600 dark:to-pink-600 text-white py-3 rounded-lg font-semibold hover:from-green-700 hover:to-blue-700 dark:hover:from-purple-700 dark:hover:to-pink-700 transition-all transform hover:scale-105"
+        [class.opacity-50]="isLoading"
+        [disabled]="isLoading"
+      >
+        @if (isLoading) {
+          <i class="fas fa-spinner fa-spin"></i>
+        } @else {
+          <i class="fas fa-check-circle mr-2"></i>Submit
+        }
+      </button>
+    </form>
+  </section>
