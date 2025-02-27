@@ -44,6 +44,7 @@ addToCart(id:string)
   this.cartService.addProductToCart(id).subscribe({
     next:(res) => {
       this.toastr.success(res.message,"Fresh Cart")
+      this.cartService.cartNumber.next(res.numOfCartItems)
     }
   })
 }
